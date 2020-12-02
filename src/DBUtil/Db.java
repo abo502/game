@@ -6,10 +6,9 @@ public class Db {
     private static String DBDriver = "com.mysql.cj.jdbc.Driver";
     private static String User = "root";
     private static String Password = "root";
-    private static String URL = "jdbc:mysql://localhost:3306/goods?serverTimezone=UTC";
+    private static String URL = "jdbc:mysql://localhost:3306/game?serverTimezone=UTC";
     static Connection connection = null;
     static PreparedStatement preparedStatement=null;
-    static Statement statement=null;
 
 
     public static Connection getConnection(){
@@ -31,23 +30,6 @@ public class Db {
             e.printStackTrace();
         }
         return null;
-    }
-
-    public static void closeAll(){
-        if (preparedStatement==null){
-            try {
-                preparedStatement.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-        if (connection==null){
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
     }
 
 }

@@ -1,9 +1,9 @@
 package entity;
 
-public class Clothes {
+public class Game {
     private Integer id;
-    private String  brand;
-    private Integer number;
+    private String  name;
+    private Integer usetime;
     private Integer price;
 
 
@@ -16,30 +16,31 @@ public class Clothes {
         this.id = id;
     }
 
+
     @Override
     public String toString() {
-        return "Clothes{" +
+        return "Game{" +
                 "id=" + id +
-                ", brand='" + brand + '\'' +
-                ", number=" + number +
+                ", name='" + name + '\'' +
+                ", usetime=" + usetime +
                 ", price=" + price +
                 '}';
     }
 
-    public String getBrand() {
-        return brand;
+    public String getName() {
+        return name;
     }
 
-    public void setBrand(String brand) {
-        this.brand = brand;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public Integer getNumber() {
-        return number;
+    public Integer getUsetime() {
+        return usetime;
     }
 
-    public void setNumber(Integer number) {
-        this.number = number;
+    public void setUsetime(Integer number) {
+        this.usetime = number;
     }
 
     public Integer getPrice() {

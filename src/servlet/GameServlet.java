@@ -1,7 +1,7 @@
-package controller;
+package servlet;
 
 import DBUtil.Db;
-import entity.Clothes;
+import entity.Game;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -15,53 +15,52 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClothesServlet extends HttpServlet {
+public class GameServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("gbk");
-        List<Clothes> lists = new ArrayList<>();
-        String num = req.getParameter("num");
+        List<Game> lists = new ArrayList<>();
+        String num = req.getParameter("usetime");
         ResultSet resultSet;
         PreparedStatement preparedStatement;
         try {
             if (num == null) {
-                String sql = "select * from stock";
+                String sql = "select * from game";
                  preparedStatement = Db.createPreparedStatement(sql);
                 if (preparedStatement != null) {
                     resultSet = preparedStatement.executeQuery();
                     while (resultSet.next()) {
-                        Clothes clothes = new Clothes();
-                        clothes.setId(resultSet.getInt("id"));
-                        clothes.setBrand(resultSet.getString("brand"));
-                        clothes.setNumber(Integer.valueOf(resultSet.getString("num")));
-                        clothes.setPrice(Integer.valueOf(resultSet.getString("price")));
-                        lists.add(clothes);
+                        Game game = new Game();
+                        game.setId(resultSet.getInt("id"));
+                        game.setName(resultSet.getString("name"));
+                        game.setUsetime(Integer.valueOf(resultSet.getString("use_time")));
+                        game.setPrice(Integer.valueOf(resultSet.getString("price")));
+                        lists.add(game);
                     }
                 }
             } else {
-                String sql = "select * from stock where num > ?";
+                String sql = "select * from game where use_time > ?";
                 preparedStatement = Db.createPreparedStatement(sql);
                 if (preparedStatement != null) {
                     preparedStatement.setObject(1,num);
                     resultSet = preparedStatement.executeQuery();
                     while (resultSet.next()) {
-                        Clothes clothes = new Clothes();
-                        clothes.setId(resultSet.getInt("id"));
-                        clothes.setBrand(resultSet.getString("brand"));
-                        clothes.setNumber(Integer.valueOf(resultSet.getString("num")));
-                        clothes.setPrice(Integer.valueOf(resultSet.getString("price")));
-                        lists.add(clothes);
+                        Game game = new Game();
+                        game.setId(resultSet.getInt("id"));
+                        game.setName(resultSet.getString("name"));
+                        game.setUsetime(Integer.valueOf(resultSet.getString("use_time")));
+                        game.setPrice(Integer.valueOf(resultSet.getString("price")));
+                        lists.add(game);
                     }
                 }
             }
-            Db.closeAll();
         } catch (SQLException e) {
             e.printStackTrace();
         }
         HttpSession session = req.getSession();
-        session.setAttribute("clothes", lists);
-        resp.sendRedirect("/stock.jsp");
+        session.setAttribute("games", lists);
+        resp.sendRedirect("/game.jsp");
     }
 
     @Override
